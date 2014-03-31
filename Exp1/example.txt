@@ -1,0 +1,42 @@
+//以下是正确的词法测试
+int a , cint , floatd , whilek , d_if;
+a = a * -3 / .5	+ 2.9;	// .5认为是正确的float，与gcc编译结果一致
+float b = 3;
+a = 0x127af	//16进制检测
+b = 01234  	//8进制检测
+while ( b <= a )
+	b += 000.0001;
+if ( a == b )
+	return true;
+else
+	return;
+
+//以下是错误的词法测试
+a.3 0a3	;25 ,25 a.2a //混合定义
+099999	//8进制错
+0X9Yzx	//16进制错
+int; -k
+
+//以下是注释的测试
+/*	
+测试开始
+//以下是正确的词法测试
+int a , cint , floatd , whilek , d_if;
+a = a * -3 / .5	+ 2.9;	// .5认为是正确的float，与gcc编译结果一致
+float b = 3；
+a = 0x127af	//16进制检测
+b = 01234  	//8进制检测
+while ( b <= a )
+	b += 000.0001;
+if ( a == b )
+	return true;
+else
+	return;
+
+//以下是错误的词法测试
+a.3 0a3	;25 ,25 a.2a //混合定义
+099999	//8进制错
+0X9Yzx	//16进制错
+int; -k
+测试结束	
+*/
