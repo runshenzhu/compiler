@@ -63,7 +63,7 @@ ExtDef      :   Specifier ExtDecList SEMI  {$$=CreatNonTreeNode("Def"); AddNode(
                 ptr = CreatNonTreeNode("EndScope");
                 AddSibling($1, $2, $3, ptr,NULL);
             }
-            |   error SEMI 
+            |   error SEMI
             ;
 ExtDecList  :   VarDec		{$$=$1;}                    
             |   VarDec COMMA ExtDecList	{$$=$1; AddSibling($1,$3,NULL);}       	
@@ -88,19 +88,17 @@ Tag         :   ID	{$$=$1;}
 /*****************************Declarators********************/            
 VarDec      :   ID		      {$$ = $1;}         //变量       
             |   VarDec LB INT RB	{$$=CreatNonTreeNode("arrary"); AddNode($$,$1,$3, NULL);}	   //数组？？ 
+            |   VarDec LB error INT RB
             ;
 FunDec      :   ID LP VarList RP	{$$=CreatNonTreeNode("FunDec"); TreeNode *p = CreatNonTreeNode("ParamS");AddNode(p,$3,NULL);AddNode($$,$1,p,NULL);}	    
             |   ID LP RP		{$$=CreatNonTreeNode("FunDec"); AddNode($$,$1,NULL);} 
-            |   error RP
-            |   error RC                 
+                           
             ;
 VarList     :   ParamDec COMMA VarList	{$$=$1; AddSibling($1, $3,NULL);}	
             |   ParamDec		      {$$=$1;}        
             ;
 ParamDec    :   Specifier VarDec	{$$=$1; AddSibling($1, $2, NULL);}	
-            |   error COMMA                 
-            |   error RB                  
-            |   error RC    
+             
             ;
 /*****************************Statements********************/       
 CompSt      :   LC DefList StmtList RC	{$$=CreatNonTreeNode("FucBody"); AddNode($$,CreatNonTreeNode("NewScope"), $2,$3,CreatNonTreeNode("EndScope"),NULL);} //函数体	
@@ -113,6 +111,7 @@ Stmt        :   Exp SEMI		{$$=$1;}
             |   RETURN Exp SEMI	{$$=$1; AddNode($1, $2, NULL);}	        
             |   IF LP Exp RP Stmt ELSE Stmt	{$$ = CreatNonTreeNode("IFSeq");AddNode($$, $3, $5, $7, NULL);}
             |   WHILE LP Exp RP Stmt		{$$=$1; AddNode($1, $3, $5, NULL);}
+            |   error Exp SEMI
             ;
 /*****************************Local Definition********************/       
 
@@ -121,7 +120,7 @@ DefList     :   Def DefList		    {$$=$2; AddNode($$, $1, NULL); }
             ;
 
 Def         :   Specifier DecList SEMI	{$$=CreatNonTreeNode("Def"); AddNode($$,$1, $2, NULL);}
-            |   error SEMI	                
+               
             ;
 
 DecList     :   Dec		      {$$=$1;}               
@@ -148,7 +147,8 @@ Exp         :   Exp ASSIGNOP Exp	{$$=CreatNonTreeNode("Exp");AddNode($$,$2); Add
             |   Exp DOT ID	{$$ = $1; if($1->child) AddSibling($1->child, $2, $3, NULL); else AddSibling($1, $2, $3, NULL);}	 //pay attention           
             |   ID		{$$=CreatNonTreeNode("Exp");AddNode($$,$1,NULL);}                   
             |   INT		{$$=CreatNonTreeNode("Exp");AddNode($$,$1,NULL);}                  
-            |   FLOAT		{$$=CreatNonTreeNode("Exp");AddNode($$,$1,NULL);}                
+            |   FLOAT		{$$=CreatNonTreeNode("Exp");AddNode($$,$1,NULL);}  
+            |   Exp LB error Exp RB              
             ;
 Args        :   Exp COMMA Args	{$$=$1; AddSibling($1, $2, NULL);}
             |   Exp		{$$=$1;}                    

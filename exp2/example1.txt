@@ -4,11 +4,11 @@ int main ()
 	float b;
 	b = a+1		//少分号	
 	b = a+1;
-	int c[];	//数组错
-	if	(b==0	// 少）
+	int c[];	//数组定义错
+	if	(b==0)	
 		b=1;
 	else
 		b=2;
 	
-	return 0;	//少返回值
-			//少} 
+	return 0;	
+} 
