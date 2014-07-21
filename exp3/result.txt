@@ -1,0 +1,121 @@
+****************NewTest**************
+INT
+test1
+FucBody
+  return
+    2.0
+INT
+test2
+FucBody
+  Def
+    INT
+    a
+  return
+    a
+FLOAT
+test3
+FucBody
+  return
+    1
+INT
+test4
+FucBody
+  Def
+    INT
+    a
+  Def
+    INT
+    test1
+  =
+    a
+    test3
+INT
+test4
+FucBody
+  return
+    0
+FLOAT
+func
+ParamS
+  INT
+  a
+FucBody
+  Def
+    INT
+    b
+  =
+    a
+    b
+  IFSeq
+    ==
+      a
+      1
+    FucBody
+      Def
+        INT
+        b
+    FucBody
+      Def
+        INT
+        c
+      Def
+        INT
+        c
+  =
+    b
+    0
+  =
+    a
+    /
+      3
+      b
+  b
+  return
+    b
+INT
+main
+FucBody
+  Def
+    INT
+    b
+  Def
+    INT
+    a
+  =
+    a
+    +
+      1
+      2
+  2
+  =
+    b
+    *
+      a
+      2
+  2
+  =
+    b
+    /
+      3
+      a
+  a
+  while
+    a
+    FucBody
+      =
+        a
+        -
+          a
+          1
+      1
+  return
+    0
+return value err: expect INT actually get FLOAT
+return un-init ID a!!!
+ID test1 redefine!!!
+assign float ID test3 to int (ID a) err!!!
+ID test4 redefine!!!
+Use un-init ID b!!!
+ID c redefine!!!
+Div Zero err!!!
+Div Zero err!!!

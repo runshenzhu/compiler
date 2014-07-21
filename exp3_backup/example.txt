@@ -1,0 +1,66 @@
+//该测试样例语义错误
+
+int test1()
+{
+	return 2.0; //返回错误类型	
+}
+
+int test2()
+{
+	int a;
+	return a;	//返回未初始化变量
+}
+
+
+float test3()
+{
+	return 1;	//正确
+}
+
+int test4()
+{
+	int test1;  //变量名与函数名冲突
+	int a;
+	a = test3();	//复制错误
+}
+
+int test4()
+{
+	return 0;
+}
+
+float func(int a)
+{
+	int b;
+	a = b;	//未初始化错
+	if(a==1)
+	{
+		int b;	//验证作用域嵌套，不应该错
+	}
+	else
+	{
+		int c; 
+		int c; //重复定义，出错
+	}
+	b = 0;
+	a = 3/b; //除0错
+	return b;  //正确
+}
+
+
+//以下正确
+int main()
+{
+	int a;
+	int b;
+	a = 1+2;
+	b = a*2;
+	b = 3/a;
+	while(a)
+	{
+		a = a-1;
+	}
+	return 0;
+}
+
+
